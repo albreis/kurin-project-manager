@@ -8,7 +8,7 @@ interface IAbstractRepository {
    * get all projects
    * 
    */
-  public function getAll(): array;
+  public function getAll(int $limit = 20, int $offset = 0): array;
 
   /**
    * set ordering by
@@ -18,23 +18,9 @@ interface IAbstractRepository {
    */
   public function setOrderBy(string $field, string $pos);
 
-  
   /**
    * get ordering by
    */
   public function getOrderBy(): array;
 
-  /**
-   * @param string $sql 
-   * @param array $params 
-   * @return PDOStatement 
-   */
-  public function query(string $sql, array $params = []): PDOStatement;
-  
-  /**
-   * @param string $sql 
-   * @param array $params 
-   * @return array 
-   */
-  public function listQuery(string $sql, array $params = []): array;
 }
