@@ -3,7 +3,7 @@
 use Albreis\Kurin\Models\Task;
 
 /** @package Albreis\Kurin\Interfaces */
-interface ITasksRepository extends IRepository {
+interface ITasksRepository extends IAbstractRepository {
 
   /**
    * get all Tasks open
