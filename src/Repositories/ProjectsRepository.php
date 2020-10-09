@@ -25,7 +25,12 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
   }
 
   /** @return array  */
-  public function getDeleted(): array { 
+  public function getDeleted(int $limit = 20, int $offset = 0): array { 
+    $sql = 'SELECT a.*, 
+    (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at = "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS open_tasks, 
+    (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at != "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS done_tasks 
+    FROM projects a WHERE a.deleted_at != "0000-00-00 00:00:00" ORDER BY a.name ASC LIMIT :rows_offset, :rows_count ';
+    $this->result = $this->listQuery($sql, ['rows_count' => $limit, 'rows_offset' => $offset]);
     return $this->result;
   }
 
@@ -33,7 +38,7 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
    * @param DateTime $date 
    * @return array 
    */
-  public function getByDate(\DateTime $date): array { 
+  public function getByDate(\DateTime $date, int $limit = 20, int $offset = 0): array { 
     return $this->result;
   }
 
@@ -41,7 +46,7 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
    * @param int $user_id 
    * @return array 
    */
-  public function getByUserId(int $user_id): array { 
+  public function getByUserId(int $user_id, int $limit = 20, int $offset = 0): array { 
     return $this->result;
   }
 
@@ -49,7 +54,7 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
    * @param string $state 
    * @return array 
    */
-  public function getByState(string $state): array { 
+  public function getByState(string $state, int $limit = 20, int $offset = 0): array { 
     return $this->result;
   }
 
@@ -72,7 +77,8 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
    * @return Project 
    */
   public function getProjectById(int $id): Project { 
-    return new Project;
+    $sql = "SELECT * FROM projects WHERE id = :id";
+    return $this->queryOne($sql, ['id' => $id]);
   }
   
 }

@@ -1,5 +1,6 @@
 <?php namespace Albreis\Kurin\Traits;
 
+use Albreis\Kurin\Models\Project;
 use PDO;
 use PDOException;
 use PDOStatement;
@@ -43,6 +44,34 @@ trait DBConnection {
       $this->db->rollback();
     }
     return $stmt;
+  }
+
+  /**
+   * @param string $sql 
+   * @param array $params 
+   * @return array 
+   */
+  public function queryOne(string $sql, array $params = []): Project 
+  {    
+    try {
+      $this->db->beginTransaction();
+      $stmt  = $this->db->prepare($sql, [PDO::ATTR_CURSOR => PDO::CURSOR_SCROLL]);
+      foreach($params as $key => $value) {
+        if(is_numeric($value)) {
+          $stmt->bindValue(":{$key}", $value, PDO::PARAM_INT);
+        } else {
+          $stmt->bindValue(":{$key}", $value);
+        }
+      }
+      $stmt->execute();
+      $this->db->commit();
+    } catch(PDOException $e) {
+      $this->db->rollback();
+    }
+
+    $result = $stmt->fetchObject($this->model);
+
+    return $result;
   }
 
   /**
