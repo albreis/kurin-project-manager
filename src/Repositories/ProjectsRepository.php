@@ -1,20 +1,22 @@
 <?php namespace Albreis\Kurin\Repositories;
 
+use Albreis\Kurin\Interfaces\IProjectsRepository;
 use Albreis\Kurin\Models\Project;
 use DateTime;
-use Iterator;
-use PDO;
-use PDOException;
 
 /** @package Albreis\Kurin\Repositories */
-class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository implements \Albreis\Kurin\Interfaces\IProjectsRepository{
+class ProjectsRepository extends AbstractRepository implements IProjectsRepository{
 
   /**
    * Model usado pelo repositório
    */
   protected string $model = 'Albreis\Kurin\Models\Project';
 
-  /** @return array  */
+  /**
+   * @param int $limit 
+   * @param int $offset 
+   * @return array 
+   */
   public function getAll(int $limit = 20, int $offset = 0): array { 
     $sql = 'SELECT a.*, 
     (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at = "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS open_tasks, 
@@ -24,7 +26,11 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
     return $this->result;
   }
 
-  /** @return array  */
+  /**
+   * @param int $limit 
+   * @param int $offset 
+   * @return array 
+   */
   public function getDeleted(int $limit = 20, int $offset = 0): array { 
     $sql = 'SELECT a.*, 
     (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at = "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS open_tasks, 
@@ -35,15 +41,30 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
   }
 
   /**
-   * @param DateTime $date 
+   * @param DateTime $start_date 
+   * @param DateTime $end_date 
+   * @param int $limit 
+   * @param int $offset 
    * @return array 
    */
-  public function getByDate(\DateTime $date, int $limit = 20, int $offset = 0): array { 
+  public function getByDate(DateTime $start_date, DateTime $end_date, int $limit = 20, int $offset = 0): array { 
+    $sql = 'SELECT a.*, 
+    (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at = "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS open_tasks, 
+    (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at != "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS done_tasks 
+    FROM projects a WHERE created_at BETWEEN :start_date AND :end_date AND a.deleted_at != "0000-00-00 00:00:00" ORDER BY a.name ASC LIMIT :rows_offset, :rows_count ';
+    $this->result = $this->listQuery($sql, [
+      'start_date' => $start_date->format('Y-m-d H:i:s'), 
+      'end_date' => $end_date->format('Y-m-d H:i:s'), 
+      'rows_count' => $limit, 
+      'rows_offset' => $offset
+    ]);
     return $this->result;
   }
 
   /**
    * @param int $user_id 
+   * @param int $limit 
+   * @param int $offset 
    * @return array 
    */
   public function getByUserId(int $user_id, int $limit = 20, int $offset = 0): array { 
@@ -52,6 +73,8 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
 
   /**
    * @param string $state 
+   * @param int $limit 
+   * @param int $offset 
    * @return array 
    */
   public function getByState(string $state, int $limit = 20, int $offset = 0): array { 
@@ -77,7 +100,7 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
    * @return Project 
    */
   public function getProjectById(int $id): Project { 
-    $sql = "SELECT * FROM projects WHERE id = :id";
+    $sql = "SELECT * FROM projects WHERE id = :id AND deleted_at = '0000-00-00 00:00:00'";
     return $this->queryOne($sql, ['id' => $id]);
   }
   
