@@ -1,6 +1,7 @@
 <?php namespace Albreis\Kurin\Traits;
 
 use PDO;
+use PDOStatement;
 
 trait DBConnection {
   
@@ -22,11 +23,11 @@ trait DBConnection {
    * @param array $params 
    * @return array 
    */
-  public function query(string $sql, array $params = []): array 
+  public function query(string $sql, array $params = []): PDOStatement 
   {    
     $stmt  = $this->db->prepare($sql, [\PDO::ATTR_CURSOR => \PDO::CURSOR_SCROLL]);
-    $result = $stmt->execute();
-    return $result;
+    $stmt->execute($params);
+    return $stmt;
   }
 
   /**
