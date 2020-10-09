@@ -9,19 +9,19 @@ interface IProjectsRepository extends IAbstractRepository{
    * get all projects open
    * 
    */
-  public function getDeleted(): array;
+  public function getDeleted(int $limit = 20, int $offset = 0): array;
 
   /**
    * get all projects by date
    * 
    */
-  public function getByDate(\DateTime $date): array;
+  public function getByDate(\DateTime $date, int $limit = 20, int $offset = 0): array;
 
   /**
    * get all projects by user id
    * 
    */
-  public function getByUserId(int $user_id): array;
+  public function getByUserId(int $user_id, int $limit = 20, int $offset = 0): array;
 
   /**
    * get all projects by user state
@@ -29,7 +29,7 @@ interface IProjectsRepository extends IAbstractRepository{
    * @param string $state done|open|deleted
    * 
    */
-  public function getByState(string $state): array;
+  public function getByState(string $state, int $limit = 20, int $offset = 0): array;
 
   /**
    * get project by ID
