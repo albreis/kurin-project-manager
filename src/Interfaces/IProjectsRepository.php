@@ -2,7 +2,7 @@
 
 use Albreis\Kurin\Models\Project;
 
-interface IProjectsRepository {
+interface IProjectsRepository extends IRepository{
 
   /**
    * get all projects

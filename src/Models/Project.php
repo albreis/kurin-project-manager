@@ -7,7 +7,7 @@ class Project implements \Albreis\Kurin\Interfaces\IProject
   use \Albreis\Kurin\Traits\DBConnection;
 
   public string $name;
-  public string $description;
+  public ?string $description;
   public array $tasks;
 
   public function getName(): string { 
