@@ -3,7 +3,7 @@
 use Albreis\Kurin\Models\Project;
 
 /** @package Albreis\Kurin\Interfaces */
-interface IProjectsRepository extends IRepository{
+interface IProjectsRepository extends IAbstractRepository{
 
   /**
    * get all projects open
