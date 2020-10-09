@@ -12,7 +12,7 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
   /**
    * Model usado pelo repositório
    */
-  protected $model = 'Albreis\Kurin\Models\Project';
+  protected string $model = 'Albreis\Kurin\Models\Project';
 
   /** @return array  */
   public function getAll(): array { 
