@@ -14,7 +14,7 @@ trait DBConnection {
   protected $db;
   
   /** @return void  */
-  public function __construct() {
+  public function connect() {
     $this->db = new PDO($this->dsn, $this->username, $this->password, $this->options);
   }
 

@@ -1,5 +1,7 @@
 <?php namespace Albreis\Kurin\Interfaces;
 
+use PDOStatement;
+
 interface IAbstractRepository {
 
   /**
@@ -22,5 +24,17 @@ interface IAbstractRepository {
    */
   public function getOrderBy(): array;
 
-  public function query(string $sql, array $params = []): array;
+  /**
+   * @param string $sql 
+   * @param array $params 
+   * @return PDOStatement 
+   */
+  public function query(string $sql, array $params = []): PDOStatement;
+  
+  /**
+   * @param string $sql 
+   * @param array $params 
+   * @return array 
+   */
+  public function listQuery(string $sql, array $params = []): array;
 }

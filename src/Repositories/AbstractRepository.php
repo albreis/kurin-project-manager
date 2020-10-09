@@ -8,5 +8,10 @@ abstract class AbstractRepository implements \Albreis\Kurin\Interfaces\IAbstract
   protected array $result = [];
 
   use \Albreis\Kurin\Traits\DBConnection;
+
+  public function __construct()
+  {
+    $this->connect();
+  }
   
 }
