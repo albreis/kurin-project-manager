@@ -9,38 +9,28 @@ use PDOException;
 /** @package Albreis\Kurin\Repositories */
 class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository implements \Albreis\Kurin\Interfaces\IProjectsRepository{
 
-  use \Albreis\Kurin\Traits\DBConnection;
-
+  /**
+   * Model usado pelo repositório
+   */
   protected $model = 'Albreis\Kurin\Models\Project';
-
-  private array $projects = [];
-
-  public function __construct() {
-    $this->connect();
-  }
 
   /** @return array  */
   public function getAll(): array { 
-
     try {
-
       $sql = 'SELECT a.*, 
       (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at = "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS open_tasks, 
       (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at != "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS done_tasks 
       FROM projects a ORDER BY a.name ASC';
-
-      $this->projects = $this->query($sql);
-
-
+      $this->result = $this->query($sql);
     } catch(PDOException $e) {
       $this->db->rollback();
     }
-    return $this->projects;
+    return $this->result;
   }
 
   /** @return array  */
   public function getDeleted(): array { 
-    return $this->projects;
+    return $this->result;
   }
 
   /**
@@ -48,7 +38,7 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
    * @return array 
    */
   public function getByDate(\DateTime $date): array { 
-    return $this->projects;
+    return $this->result;
   }
 
   /**
@@ -56,7 +46,7 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
    * @return array 
    */
   public function getByUserId(int $user_id): array { 
-    return $this->projects;
+    return $this->result;
   }
 
   /**
@@ -64,7 +54,7 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
    * @return array 
    */
   public function getByState(string $state): array { 
-    return $this->projects;
+    return $this->result;
   }
 
   /**
@@ -73,12 +63,12 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
    * @return array 
    */
   public function setOrderBy(string $field, string $pos) { 
-    return $this->projects;
+    return $this->result;
   }
 
   /** @return array  */
   public function getOrderBy(): array { 
-    return $this->projects;
+    return $this->result;
   }
 
   /**

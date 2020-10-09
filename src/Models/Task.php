@@ -3,12 +3,11 @@
 namespace Albreis\Kurin\Models;
 
 /** @package Albreis\Kurin\Models */
-class Project extends \Albreis\Kurin\Models\AbstractModel implements \Albreis\Kurin\Interfaces\IProject
+class Task extends \Albreis\Kurin\Models\AbstractModel implements \Albreis\Kurin\Interfaces\ITask
 {
 
   public string $name;
   public ?string $description;
-  public array $tasks;
 
   /** @return string  */
   public function getName(): string { 
@@ -41,11 +40,5 @@ class Project extends \Albreis\Kurin\Models\AbstractModel implements \Albreis\Ku
   public function setOpen() { }
 
   public function setDeleted() { }
-
-  public function doneAllTasks() { }
-
-  public function openAllTasks() { }
-
-  public function deleteAllTasks() { }
   
 }

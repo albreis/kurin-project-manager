@@ -1,30 +1,30 @@
 <?php namespace Albreis\Kurin\Interfaces;
 
-use Albreis\Kurin\Models\Project;
+use Albreis\Kurin\Models\Task;
 
 /** @package Albreis\Kurin\Interfaces */
-interface IProjectsRepository extends IRepository{
+interface ITasksRepository extends IRepository {
 
   /**
-   * get all projects open
+   * get all Tasks open
    * 
    */
   public function getDeleted(): array;
 
   /**
-   * get all projects by date
+   * get all Tasks by date
    * 
    */
   public function getByDate(\DateTime $date): array;
 
   /**
-   * get all projects by user id
+   * get all Tasks by user id
    * 
    */
   public function getByUserId(int $user_id): array;
 
   /**
-   * get all projects by user state
+   * get all Tasks by user state
    * 
    * @param string $state done|open|deleted
    * 
@@ -32,9 +32,9 @@ interface IProjectsRepository extends IRepository{
   public function getByState(string $state): array;
 
   /**
-   * get project by ID
+   * get Task by ID
    * 
-   * @return Albreis\Kurin\Models\Project
+   * @return Albreis\Kurin\Models\Task
    */
-  public function getProjectById(int $id): Project;
+  public function getTaskById(int $id): Task;
 }

@@ -1,18 +1,12 @@
 <?php namespace Albreis\Kurin\Repositories;
 
 /** @package Albreis\Kurin\Repositories */
-abstract class AbstractRepository implements \Albreis\Kurin\Interfaces\IRepository {  
+abstract class AbstractRepository implements \Albreis\Kurin\Interfaces\IAbstractRepository {  
 
-  protected $model;
+  protected string $model;
 
-  public function query(string $sql, array $params = []): array 
-  {    
-    $stmt  = $this->db->prepare($sql, [\PDO::ATTR_CURSOR => \PDO::CURSOR_SCROLL]);
-    $stmt->execute();
+  protected array $result = [];
 
-    while($result[] = $stmt->fetchObject($this->model));
-    array_pop($result);
-
-    return $result;
-  }
+  use \Albreis\Kurin\Traits\DBConnection;
+  
 }

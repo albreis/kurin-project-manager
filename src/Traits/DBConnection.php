@@ -11,8 +11,38 @@ trait DBConnection {
     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
   ); 
   protected $db;
-
-  public function connect() {
+  
+  /** @return void  */
+  public function __construct() {
     $this->db = new PDO($this->dsn, $this->username, $this->password, $this->options);
+  }
+
+  /**
+   * @param string $sql 
+   * @param array $params 
+   * @return array 
+   */
+  public function query(string $sql, array $params = []): array 
+  {    
+    $stmt  = $this->db->prepare($sql, [\PDO::ATTR_CURSOR => \PDO::CURSOR_SCROLL]);
+    $result = $stmt->execute();
+    return $result;
+  }
+
+  /**
+   * @param string $sql 
+   * @param array $params 
+   * @return array 
+   */
+  public function listQuery(string $sql, array $params = []): array 
+  {    
+    $stmt  = $this->db->prepare($sql, [\PDO::ATTR_CURSOR => \PDO::CURSOR_SCROLL]);
+    $stmt->execute($params);
+
+    while($row = $stmt->fetchObject($this->model)) {
+      $result[] = $row;
+    }
+
+    return $result;
   }
 }
