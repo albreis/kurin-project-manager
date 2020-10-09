@@ -15,16 +15,12 @@ class ProjectsRepository extends \Albreis\Kurin\Repositories\AbstractRepository 
   protected string $model = 'Albreis\Kurin\Models\Project';
 
   /** @return array  */
-  public function getAll(): array { 
-    try {
-      $sql = 'SELECT a.*, 
-      (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at = "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS open_tasks, 
-      (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at != "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS done_tasks 
-      FROM projects a ORDER BY a.name ASC';
-      $this->result = $this->listQuery($sql);
-    } catch(PDOException $e) {
-      $this->db->rollback();
-    }
+  public function getAll(int $limit = 20, int $offset = 0): array { 
+    $sql = 'SELECT a.*, 
+    (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at = "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS open_tasks, 
+    (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at != "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS done_tasks 
+    FROM projects a WHERE a.deleted_at = "0000-00-00 00:00:00" ORDER BY a.name ASC LIMIT :rows_offset, :rows_count ';
+    $this->result = $this->listQuery($sql, ['rows_count' => $limit, 'rows_offset' => $offset]);
     return $this->result;
   }
 

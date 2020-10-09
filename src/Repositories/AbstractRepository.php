@@ -3,11 +3,11 @@
 /** @package Albreis\Kurin\Repositories */
 abstract class AbstractRepository implements \Albreis\Kurin\Interfaces\IAbstractRepository {  
 
+  use \Albreis\Kurin\Traits\DBConnection;
+  
   protected string $model;
 
   protected array $result = [];
-
-  use \Albreis\Kurin\Traits\DBConnection;
 
   public function __construct()
   {
