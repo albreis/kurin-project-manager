@@ -1,6 +1,7 @@
 <?php namespace Albreis\Kurin\Interfaces;
 
 use Albreis\Kurin\Models\Project;
+use DateTime;
 
 /** @package Albreis\Kurin\Interfaces */
 interface IProjectsRepository extends IAbstractRepository{
@@ -15,7 +16,7 @@ interface IProjectsRepository extends IAbstractRepository{
    * get all projects by date
    * 
    */
-  public function getByDate(\DateTime $date, int $limit = 20, int $offset = 0): array;
+  public function getByDate(DateTime $start_date, DateTime $end_date, int $limit = 20, int $offset = 0): array;
 
   /**
    * get all projects by user id
