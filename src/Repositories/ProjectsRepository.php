@@ -3,8 +3,10 @@ declare(strict_types=1);
 
 namespace Albreis\Kurin\Repositories;
 
+use Albreis\Kurin\Database\MySQL;
 use Albreis\Kurin\Interfaces\Repositories\IProjectsRepository;
 use Albreis\Kurin\Models\Project;
+use Albreis\Kurin\Traits\Database;
 use DateTime;
 
 /** @package Albreis\Kurin\Repositories */
@@ -25,7 +27,7 @@ class ProjectsRepository extends AbstractRepository implements IProjectsReposito
     (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at = "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS open_tasks, 
     (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at != "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS done_tasks 
     FROM projects a WHERE a.deleted_at = "0000-00-00 00:00:00" ORDER BY a.name ASC LIMIT :rows_offset, :rows_count ';
-    $this->result = $this->listQuery($sql, ['rows_count' => $limit, 'rows_offset' => $offset]);
+    $this->result = Database::connect(new MySQL)->listQuery($sql, ['rows_count' => $limit, 'rows_offset' => $offset]);
     return $this->result;
   }
 
@@ -39,7 +41,7 @@ class ProjectsRepository extends AbstractRepository implements IProjectsReposito
     (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at = "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS open_tasks, 
     (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at != "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS done_tasks 
     FROM projects a WHERE a.deleted_at != "0000-00-00 00:00:00" ORDER BY a.name ASC LIMIT :rows_offset, :rows_count ';
-    $this->result = $this->listQuery($sql, ['rows_count' => $limit, 'rows_offset' => $offset]);
+    $this->result = Database::connect(new MySQL)->listQuery($sql, ['rows_count' => $limit, 'rows_offset' => $offset]);
     return $this->result;
   }
 
@@ -55,7 +57,7 @@ class ProjectsRepository extends AbstractRepository implements IProjectsReposito
     (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at = "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS open_tasks, 
     (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at != "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS done_tasks 
     FROM projects a WHERE created_at BETWEEN :start_date AND :end_date AND a.deleted_at != "0000-00-00 00:00:00" ORDER BY a.name ASC LIMIT :rows_offset, :rows_count ';
-    $this->result = $this->listQuery($sql, [
+    $this->result = Database::connect(new MySQL)->listQuery($sql, [
       'start_date' => $start_date->format('Y-m-d H:i:s'), 
       'end_date' => $end_date->format('Y-m-d H:i:s'), 
       'rows_count' => $limit, 
@@ -104,7 +106,7 @@ class ProjectsRepository extends AbstractRepository implements IProjectsReposito
    */
   public function getProjectById(int $id): Project { 
     $sql = "SELECT * FROM projects WHERE id = :id AND deleted_at = '0000-00-00 00:00:00'";
-    return $this->queryOne($sql, ['id' => $id]);
+    return Database::connect(new MySQL)->queryOne($sql, ['id' => $id]);
   }
   
 }
