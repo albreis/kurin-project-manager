@@ -1,10 +1,11 @@
 <?php namespace Albreis\Kurin\Repositories;
 
+use Albreis\Kurin\Interfaces\Repositories\ITasksRepository;
 use Albreis\Kurin\Models\Task;
 use DateTime;
 
 /** @package Albreis\Kurin\Repositories */
-class TasksRepository extends \Albreis\Kurin\Repositories\AbstractRepository  implements \Albreis\Kurin\Interfaces\ITasksRepository {
+class TasksRepository extends AbstractRepository  implements ITasksRepository {
 
     protected string $model = 'Albreis\Kurin\Models\Task';
 

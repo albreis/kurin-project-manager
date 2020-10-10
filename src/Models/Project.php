@@ -2,8 +2,10 @@
 
 namespace Albreis\Kurin\Models;
 
+use Albreis\Kurin\Interfaces\Models\IProject;
+
 /** @package Albreis\Kurin\Models */
-class Project extends \Albreis\Kurin\Models\AbstractModel implements \Albreis\Kurin\Interfaces\IProject
+class Project extends AbstractModel implements IProject
 {
 
   public string $name;

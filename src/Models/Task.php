@@ -2,8 +2,10 @@
 
 namespace Albreis\Kurin\Models;
 
+use Albreis\Kurin\Interfaces\Models\ITask;
+
 /** @package Albreis\Kurin\Models */
-class Task extends \Albreis\Kurin\Models\AbstractModel implements \Albreis\Kurin\Interfaces\ITask
+class Task extends AbstractModel implements ITask
 {
 
   public string $name;

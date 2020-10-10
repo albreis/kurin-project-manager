@@ -1,6 +1,9 @@
-<?php namespace Albreis\Kurin\Repositories;
+<?php 
+declare(strict_types=1);
 
-use Albreis\Kurin\Interfaces\IProjectsRepository;
+namespace Albreis\Kurin\Repositories;
+
+use Albreis\Kurin\Interfaces\Repositories\IProjectsRepository;
 use Albreis\Kurin\Models\Project;
 use DateTime;
 
@@ -17,7 +20,7 @@ class ProjectsRepository extends AbstractRepository implements IProjectsReposito
    * @param int $offset 
    * @return array 
    */
-  public function getAll(int $limit = 20, int $offset = 0): array { 
+  public function getAll(int $limit = 20, int $offset = 0): array {
     $sql = 'SELECT a.*, 
     (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at = "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS open_tasks, 
     (SELECT count(*) FROM tasks b WHERE b.project_id = a.id AND done_at != "0000-00-00 00:00:00" AND deleted_at = "0000-00-00 00:00:00") AS done_tasks 
