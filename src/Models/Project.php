@@ -3,14 +3,16 @@
 namespace Albreis\Kurin\Models;
 
 use Albreis\Kurin\Interfaces\Models\IProject;
+use Albreis\Kurin\Model;
+use Albreis\Kurin\Traits\InformationExtractor;
 
 /** @package Albreis\Kurin\Models */
-class Project extends AbstractModel implements IProject
+class Project extends Model implements IProject
 {
 
   public string $name;
-  public ?string $description;
-  public array $tasks;
+  public ?string $description = null;
+  protected array $tasks = [];
 
   /** @return string  */
   public function getName(): string { 
