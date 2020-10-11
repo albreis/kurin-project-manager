@@ -8,6 +8,7 @@ class Query {
 
     private PDO $db;
     private ?string $model = 'stdClass';
+    private $lastInsertId;
 
     public function __construct(Connector $connector) {
       $this->db = $connector->connect();
@@ -15,6 +16,7 @@ class Query {
 
     public function setModel(string $model = null) {
       $this->model = $model;
+      return $this;
     }
   
     /**
@@ -35,6 +37,7 @@ class Query {
           }
         }
         $stmt->execute();
+        $this->lastInsertId = $this->db->lastInsertId();
         $this->db->commit();
       } catch(PDOException $e) {
         $this->db->rollback();
@@ -47,7 +50,7 @@ class Query {
      * @param array $params 
      * @return array 
      */
-    public function queryOne(string $sql, array $params = []): object 
+    public function queryOne(string $sql, array $params = []): ?object 
     {    
       try {
         $this->db->beginTransaction();
@@ -60,6 +63,7 @@ class Query {
           }
         }
         $stmt->execute();
+        $this->lastInsertId = $this->db->lastInsertId();
         $this->db->commit();
       } catch(PDOException $e) {
         $this->db->rollback();
@@ -75,7 +79,7 @@ class Query {
      * @param array $params 
      * @return array 
      */
-    public function listQuery(string $sql, array $params = []): array 
+    public function listQuery(string $sql, array $params = []): ?array 
     {    
       try {
         $this->db->beginTransaction();
@@ -88,6 +92,7 @@ class Query {
           }
         }
         $stmt->execute();
+        $this->lastInsertId = $this->db->lastInsertId();
         $this->db->commit();
       } catch(PDOException $e) {
         $this->db->rollback();
@@ -100,6 +105,10 @@ class Query {
       }
   
       return $result;
+    }
+
+    public function lastInsertId(): ?int {
+      return $this->lastInsertId;
     }
     
 }
