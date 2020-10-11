@@ -11,15 +11,29 @@ class ProjectsController extends AbstractController {
 
   function index() {
     $cache = Cache::file(md5(Request::uri()), 60, function () {
-      $request = json_decode(file_get_contents('php://input'));
       $projects = new ProjectsRepository;
-      $limit = $request->limit ?? 20;
-      $offset = $request->offset ?? 0;
+      $limit = Request::inputJson('limit', 20);
+      $offset = Request::inputJson('offset', 0);
       try {
         $result = $projects->getAll($limit, $offset);   
       }catch(Exception $e) {
         $result = $e->getMessage();
       }  
+      return Response::json($result);
+    });
+
+    echo $cache;
+  }
+  function deleteds() {
+    $cache = Cache::file(md5(Request::uri()), 60, function () {
+      $projects = new ProjectsRepository;
+      $limit = Request::inputJson('limit', 20);
+      $offset = Request::inputJson('offset', 0);
+      try {
+        $result = $projects->getDeleted($limit, $offset);   
+      } catch(Exception $e) {
+        $result = $e->getMessage();
+      }
       return Response::json($result);
     });
 
