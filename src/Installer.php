@@ -2,17 +2,22 @@
 
 use Albreis\Kurin\Database\MySQL;
 use Albreis\Kurin\Traits\Database;
-use Albreis\Kurin\Traits\DBConnection;
 use PDOException;
 
 class Installer {
 
   public function run() {
+    echo "Installing: createTableAccount\n\r";
     $this->createTableAccount();
+    echo "Installing: createNewsletterTable\n\r";
     $this->createNewsletterTable();
+    echo "Installing: createUsersTable\n\r";
     $this->createUsersTable();
+    echo "Installing: createLogsTable\n\r";
     $this->createLogsTable();
+    echo "Installing: createProjectsTable\n\r";
     $this->createProjectsTable();
+    echo "Installing: createTasksTable\n\r";
     $this->createTasksTable();
   }
 
