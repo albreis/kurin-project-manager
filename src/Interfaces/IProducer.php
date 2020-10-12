@@ -21,17 +21,5 @@ interface IProducer {
    * @return mixed 
    */
   public function setCreatedBy(object $object, object $creator);
-
-  /**
-   * @param bool $return 
-   * @return null|object 
-   */
-  public function store(object $object, bool $return = true): ?int;
-  
-  /**
-   * @param bool $return 
-   * @return null|int 
-   */
-  public function storeAll(bool $return = true): ?array;
   
 }
