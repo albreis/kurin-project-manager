@@ -2,7 +2,7 @@
 
 /** @package Albreis\Kurin\Interfaces */
 interface IValidator {
-  public function validate(): bool;
+  public function validate(?object $object = null): bool;
   public function validateCreatedAt(): bool;
   public function validateUpdatedAt(): bool;
   public function validateDeletedAt(): bool;
@@ -10,4 +10,6 @@ interface IValidator {
   public function validateUpdatedBy(): bool;
   public function validateDeletedBy(): bool;
   public function getErrors(): ?array;
+  public function addObject(object $object);
+  public function addObjects(array $objects);
 }

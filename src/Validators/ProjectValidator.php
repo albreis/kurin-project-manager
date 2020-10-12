@@ -2,11 +2,13 @@
 
 use Albreis\Kurin\Interfaces\Validators\IProjectValidator;
 use Albreis\Kurin\Validator;
+use DateTime;
 
 /** @package Albreis\Kurin\Validators */
 class ProjectValidator extends Validator implements IProjectValidator {
 
-    public function validate(): bool { 
+    public function validate(?object $object = null): bool { 
+      $this->object = $object;
       return $this->validateCreatedAt() && 
              $this->validateUpdatedAt() &&
              $this->validateDeletedAt() &&
@@ -18,35 +20,41 @@ class ProjectValidator extends Validator implements IProjectValidator {
     }
 
     public function validateCreatedAt(): bool { 
-      return true;
+      return $this->object->getCreatedAt() instanceof DateTime;
     }
 
     public function validateUpdatedAt(): bool { 
-      return true;
+      return $this->object->getCreatedAt() == null || 
+              $this->object->getCreatedAt() instanceof DateTime;
     }
 
     public function validateDeletedAt(): bool { 
-      return true;
+      return $this->object->getCreatedAt() == null || 
+              $this->object->getCreatedAt() instanceof DateTime;
     }
 
     public function validateCreatedBy(): bool { 
-      return true;
+      return $this->object->getCreatedBy() == null || 
+              is_numeric($this->object->getCreatedBy());
     }
 
     public function validateUpdatedBy(): bool { 
-      return true;
+      return $this->object->getUpdatedBy() == null || 
+              is_numeric($this->object->getUpdatedBy());
     }
 
     public function validateDeletedBy(): bool { 
-      return true;
+      return $this->object->getDeletedBy() == null || 
+              is_numeric($this->object->getDeletedBy());
     }
 
     public function validateName(): bool { 
-      return true;
+      return is_string($this->object->getName());
     }
 
     public function validateDescription(): bool { 
-      return true;
+      return $this->object->getDescription() == null || 
+              is_string($this->object->getDescription());
     }
 
 }

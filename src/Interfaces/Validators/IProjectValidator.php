@@ -1,9 +1,9 @@
 <?php namespace Albreis\Kurin\Interfaces\Validators;
 
-use Albreis\Kurin\Models\Project;
+use Albreis\Kurin\Interfaces\IValidator;
 
 /** @package Albreis\Kurin\Interfaces\Validators */
-interface IProjectValidator {
+interface IProjectValidator extends IValidator {
 
   /** @return bool  */
   public function validateName(): bool;
