@@ -16,7 +16,7 @@ class ProjectsRepository extends AbstractRepository implements IProjectsReposito
   /**
    * Model usado pelo repositório
    */
-  protected string $model = 'Albreis\Kurin\Models\Project';
+  protected string $model = 'Albreis\KurinProjectManager\Models\Project';
 
   /**
    * @param int $limit 
@@ -107,7 +107,7 @@ class ProjectsRepository extends AbstractRepository implements IProjectsReposito
    */
   public function getProjectById(int $id): Project { 
     $sql = "SELECT * FROM projects WHERE id = :id AND deleted_at = '0000-00-00 00:00:00'";
-    return Database::connect(new MySQL)->queryOne($sql, ['id' => $id]);
+    return Database::connect(new MySQL)->setModel($this->model)->queryOne($sql, ['id' => $id]);
   }
   
 }
