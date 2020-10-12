@@ -1,7 +1,7 @@
-<?php namespace Albreis\Kurin\Validators;
+<?php namespace Albreis\KurinProjectManager\Validators;
 
-use Albreis\Kurin\Interfaces\Validators\IProjectValidator;
 use Albreis\Kurin\Validator;
+use Albreis\KurinProjectManager\Interfaces\Validators\IProjectValidator;
 use DateTime;
 
 /** @package Albreis\Kurin\Validators */

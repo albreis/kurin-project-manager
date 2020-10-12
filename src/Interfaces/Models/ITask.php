@@ -1,4 +1,4 @@
-<?php namespace Albreis\Kurin\Interfaces\Models;
+<?php namespace Albreis\KurinProjectManager\Interfaces\Models;
 
 interface ITask {
   /**

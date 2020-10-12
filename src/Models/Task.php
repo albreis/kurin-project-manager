@@ -1,8 +1,8 @@
 <?php
 
-namespace Albreis\Kurin\Models;
+namespace Albreis\KurinProjectManager\Models;
 
-use Albreis\Kurin\Interfaces\Models\ITask;
+use Albreis\KurinProjectManager\Interfaces\Models\ITask;
 use Albreis\Kurin\Model;
 
 /** @package Albreis\Kurin\Models */

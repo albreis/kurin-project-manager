@@ -1,7 +1,8 @@
-<?php namespace Albreis\Kurin\Repositories;
+<?php namespace Albreis\KurinProjectManager\Repositories;
 
-use Albreis\Kurin\Interfaces\Repositories\ITasksRepository;
+use Albreis\KurinProjectManager\Interfaces\Repositories\ITasksRepository;
 use Albreis\Kurin\Models\Task;
+use Albreis\Kurin\Repositories\AbstractRepository;
 use DateTime;
 
 /** @package Albreis\Kurin\Repositories */

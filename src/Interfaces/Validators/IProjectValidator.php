@@ -1,4 +1,4 @@
-<?php namespace Albreis\Kurin\Interfaces\Validators;
+<?php namespace Albreis\KurinProjectManager\Interfaces\Validators;
 
 use Albreis\Kurin\Interfaces\IValidator;
 

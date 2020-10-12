@@ -1,4 +1,6 @@
-<?php namespace Albreis\Kurin\Managers;
+<?php namespace Albreis\KurinProjectManager\Managers;
+
+use Albreis\Kurin\Managers\StorageManager;
 
 /** @package Albreis\Kurin\Managers */
 class ProjectStorageManager extends StorageManager {

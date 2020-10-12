@@ -1,9 +1,10 @@
-<?php namespace Albreis\Kurin\Controllers;
+<?php namespace Albreis\KurinProjectManager\Controllers;
 
-use Albreis\Kurin\Repositories\ProjectsRepository;
+use Albreis\Kurin\Controllers\AbstractController;
 use Albreis\Kurin\Traits\Cache;
 use Albreis\Kurin\Traits\Request;
 use Albreis\Kurin\Traits\Response;
+use Albreis\KurinProjectManager\Repositories\ProjectsRepository;
 use Exception;
 
 /** @package Albreis\Kurin\Controllers */

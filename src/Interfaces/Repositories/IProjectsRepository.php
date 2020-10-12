@@ -1,6 +1,7 @@
-<?php namespace Albreis\Kurin\Interfaces\Repositories;
+<?php namespace Albreis\KurinProjectManager\Interfaces\Repositories;
 
-use Albreis\Kurin\Models\Project;
+use Albreis\Kurin\Interfaces\Repositories\IAbstractRepository;
+use Albreis\KurinProjectManager\Models\Project;
 use DateTime;
 
 /** @package Albreis\Kurin\Interfaces */

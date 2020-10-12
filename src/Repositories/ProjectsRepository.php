@@ -1,11 +1,12 @@
 <?php 
 declare(strict_types=1);
 
-namespace Albreis\Kurin\Repositories;
+namespace Albreis\KurinProjectManager\Repositories;
 
 use Albreis\Kurin\Database\MySQL;
-use Albreis\Kurin\Interfaces\Repositories\IProjectsRepository;
-use Albreis\Kurin\Models\Project;
+use Albreis\Kurin\Repositories\AbstractRepository;
+use Albreis\KurinProjectManager\Interfaces\Repositories\IProjectsRepository;
+use Albreis\KurinProjectManager\Models\Project;
 use Albreis\Kurin\Traits\Database;
 use DateTime;
 

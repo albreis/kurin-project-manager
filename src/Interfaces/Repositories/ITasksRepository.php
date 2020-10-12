@@ -1,6 +1,7 @@
-<?php namespace Albreis\Kurin\Interfaces\Repositories;
+<?php namespace Albreis\KurinProjectManager\Interfaces\Repositories;
 
-use Albreis\Kurin\Models\Task;
+use Albreis\Kurin\Interfaces\Repositories\IAbstractRepository;
+use Albreis\KurinProjectManager\Models\Task;
 
 /** @package Albreis\Kurin\Interfaces */
 interface ITasksRepository extends IAbstractRepository {
