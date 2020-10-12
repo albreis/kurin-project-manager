@@ -21,5 +21,14 @@ interface IProducer {
    * @return mixed 
    */
   public function setCreatedBy(object $object, object $creator);
+
+  /**
+   * @param string $model 
+   * @return mixed 
+   */
+  public function setModel(string $model);
+  
+  /** @return null|string  */
+  public function getModel(): ?string;
   
 }

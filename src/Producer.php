@@ -48,4 +48,13 @@ abstract class Producer implements IProducer {
   public function setCreatedBy(object $object, object $creator){
 
   }
+
+  public function setModel(string $model) {
+    $this->model = $model;
+    return $this;
+  }
+
+  public function getModel(): ?string {
+    return $this->model;
+  }
 }
